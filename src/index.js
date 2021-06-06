@@ -1,17 +1,38 @@
+import {createMuiTheme, ThemeProvider} from '@material-ui/core';
+import {deepOrange, green, grey, red} from '@material-ui/core/colors';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import {store} from './app/redux/store';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {Navigation} from "./app/utils/Routes";
+
+const RegisterRedux$MaterialTheme = () => {
+    const theme = createMuiTheme({
+        typography: {
+            fontFamily: ['Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'].join(',')
+        },
+        palette: {
+            primary: {main: '#29a3c4', light: '#29a3c4'},
+            secondary: deepOrange,
+            success: green,
+            info: grey,
+            error: red,
+            type: 'light'
+        }
+    });
+    return (
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <Navigation/>
+            </ThemeProvider>
+        </Provider>
+    );
+};
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <RegisterRedux$MaterialTheme/>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
